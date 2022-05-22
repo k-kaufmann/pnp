@@ -49,6 +49,12 @@ export default function CharacterModal(props: CharacterModalProps) {
     setChar({ ...char, attributes: newAttributes });
   };
 
+  const chanceChar = (key: string, value: string) => {
+    let newChar: any = { ...char };
+    newChar[key] = value;
+    setChar(newChar);
+  };
+
   return (
     <>
       <Modal size="lg" show={props.show} onHide={props.onHide}>
@@ -59,236 +65,52 @@ export default function CharacterModal(props: CharacterModalProps) {
           <Form>
             <Row>
               <Col sm={6}>
-                <Row className="mb-3">
-                  <Form.Group as={Row}>
-                    <Form.Label column sm={4}>
-                      Name
-                    </Form.Label>
-                    <Col sm={8}>
-                      <Form.Control type="text" id="charName"></Form.Control>
-                    </Col>
-                  </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                  <Form.Group as={Row}>
-                    <Form.Label column sm={4}>
-                      Spieler
-                    </Form.Label>
-                    <Col sm={8}>
-                      <Form.Control type="text"></Form.Control>
-                    </Col>
-                  </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                  <Form.Group as={Row}>
-                    <Form.Label column sm={4}>
-                      Beruf
-                    </Form.Label>
-                    <Col sm={8}>
-                      <Form.Control type="text"></Form.Control>
-                    </Col>
-                  </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                  <Form.Group as={Row}>
-                    <Form.Label column sm={4}>
-                      Alter
-                    </Form.Label>
-                    <Col sm={8}>
-                      <Form.Control type="text"></Form.Control>
-                    </Col>
-                  </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                  <Form.Group as={Row}>
-                    <Form.Label column sm={4}>
-                      Gerburtstag
-                    </Form.Label>
-                    <Col sm={8}>
-                      <Form.Control type="text"></Form.Control>
-                    </Col>
-                  </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                  <Form.Group as={Row}>
-                    <Form.Label column sm={4}>
-                      Geschlecht
-                    </Form.Label>
-                    <Col sm={8}>
-                      <Form.Control type="text"></Form.Control>
-                    </Col>
-                  </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                  <Form.Group as={Row}>
-                    <Form.Label column sm={4}>
-                      Wohnort
-                    </Form.Label>
-                    <Col sm={8}>
-                      <Form.Control type="text"></Form.Control>
-                    </Col>
-                  </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                  <Form.Group as={Row}>
-                    <Form.Label column sm={4}>
-                      Geburtsort
-                    </Form.Label>
-                    <Col sm={8}>
-                      <Form.Control type="text"></Form.Control>
-                    </Col>
-                  </Form.Group>
-                </Row>
+                {Object.keys(char)
+                  .filter((it) => {
+                    return it !== "attributes";
+                  })
+                  .map((it) => {
+                    return (
+                      <Row className="mb-3" key={it}>
+                        <Form.Group as={Row}>
+                          <Form.Label column sm={4}>
+                            {it}
+                          </Form.Label>
+                          <Col sm={8}>
+                            <Form.Control
+                              type="text"
+                              onChange={(e) => {
+                                chanceChar(it, e.target.value);
+                              }}
+                            ></Form.Control>
+                          </Col>
+                        </Form.Group>
+                      </Row>
+                    );
+                  })}
               </Col>
               <Col sm={6}>
-                <Row className="mb-3">
-                  <Col sm={6}>
-                    <Form.Group as={Row}>
-                      <Form.Label column sm={7}>
-                        Stärke
-                      </Form.Label>
-                      <Col sm={5}>
-                        <Form.Control
-                          type="text"
-                          onChange={(e) => {
-                            changeAttributes("strength", e.target.value);
-                          }}
-                        ></Form.Control>
+                {Object.keys(char.attributes).map((key: string) => {
+                  return (
+                    <Row className="mb-3" key={key}>
+                      <Col sm={6}>
+                        <Form.Group as={Row}>
+                          <Form.Label column sm={7}>
+                            {key}
+                          </Form.Label>
+                          <Col sm={5}>
+                            <Form.Control
+                              type="text"
+                              onChange={(e) => {
+                                changeAttributes(key, e.target.value);
+                              }}
+                            ></Form.Control>
+                          </Col>
+                        </Form.Group>
                       </Col>
-                    </Form.Group>
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Group as={Row}>
-                      <Form.Label column sm={7}>
-                        Geschicklichkeit
-                      </Form.Label>
-                      <Col sm={5}>
-                        <Form.Control type="text"></Form.Control>
-                      </Col>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row className="mb-3">
-                  <Col sm={6}>
-                    <Form.Group as={Row}>
-                      <Form.Label column sm={7}>
-                        Konstitution
-                      </Form.Label>
-                      <Col sm={5}>
-                        <Form.Control type="text"></Form.Control>
-                      </Col>
-                    </Form.Group>
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Group as={Row}>
-                      <Form.Label column sm={7}>
-                        Intelligenz
-                      </Form.Label>
-                      <Col sm={5}>
-                        <Form.Control type="text"></Form.Control>
-                      </Col>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row className="mb-3">
-                  <Col sm={6}>
-                    <Form.Group as={Row}>
-                      <Form.Label column sm={7}>
-                        Bildung
-                      </Form.Label>
-                      <Col sm={5}>
-                        <Form.Control type="text"></Form.Control>
-                      </Col>
-                    </Form.Group>
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Group as={Row}>
-                      <Form.Label column sm={7}>
-                        Charisma
-                      </Form.Label>
-                      <Col sm={5}>
-                        <Form.Control type="text"></Form.Control>
-                      </Col>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row className="mb-3">
-                  <Col sm={6}>
-                    <Form.Group as={Row}>
-                      <Form.Label column sm={7}>
-                        Körpergröße
-                      </Form.Label>
-                      <Col sm={5}>
-                        <Form.Control type="text"></Form.Control>
-                      </Col>
-                    </Form.Group>
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Group as={Row}>
-                      <Form.Label column sm={7}>
-                        Erscheinung
-                      </Form.Label>
-                      <Col sm={5}>
-                        <Form.Control type="text"></Form.Control>
-                      </Col>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row className="mb-3">
-                  <Col sm={6}>
-                    <Form.Group as={Row}>
-                      <Form.Label column sm={7}>
-                        Mana
-                      </Form.Label>
-                      <Col sm={5}>
-                        <Form.Control type="text"></Form.Control>
-                      </Col>
-                    </Form.Group>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-
-            <Row>
-              <Col sm={3}>
-                <Form.Group as={Row}>
-                  <Form.Label column sm={7}>
-                    Lebenspunkte
-                  </Form.Label>
-                  <Col sm={5}>
-                    <Form.Control type="text"></Form.Control>
-                  </Col>
-                </Form.Group>
-              </Col>
-              <Col sm={3}>
-                <Form.Group as={Row}>
-                  <Form.Label column sm={7}>
-                    Manapunkte
-                  </Form.Label>
-                  <Col sm={5}>
-                    <Form.Control type="text"></Form.Control>
-                  </Col>
-                </Form.Group>
-              </Col>
-              <Col sm={3}>
-                <Form.Group as={Row}>
-                  <Form.Label column sm={7}>
-                    Glück
-                  </Form.Label>
-                  <Col sm={5}>
-                    <Form.Control type="text"></Form.Control>
-                  </Col>
-                </Form.Group>
-              </Col>
-              <Col sm={3}>
-                <Form.Group as={Row}>
-                  <Form.Label column sm={7}>
-                    Stabilität
-                  </Form.Label>
-                  <Col sm={5}>
-                    <Form.Control type="text"></Form.Control>
-                  </Col>
-                </Form.Group>
+                    </Row>
+                  );
+                })}
               </Col>
             </Row>
           </Form>
