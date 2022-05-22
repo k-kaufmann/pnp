@@ -69,7 +69,7 @@ export default function CharacterModal(props: CharacterModalProps) {
                   .filter((it) => {
                     return it !== "attributes";
                   })
-                  .map((it) => {
+                  .map((it: string) => {
                     return (
                       <Row className="mb-3" key={it}>
                         <Form.Group as={Row}>
@@ -82,6 +82,7 @@ export default function CharacterModal(props: CharacterModalProps) {
                               onChange={(e) => {
                                 chanceChar(it, e.target.value);
                               }}
+                              value={char[it]}
                             ></Form.Control>
                           </Col>
                         </Form.Group>
@@ -104,6 +105,7 @@ export default function CharacterModal(props: CharacterModalProps) {
                               onChange={(e) => {
                                 changeAttributes(key, e.target.value);
                               }}
+                              value={char.attributes[key]}
                             ></Form.Control>
                           </Col>
                         </Form.Group>

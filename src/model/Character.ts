@@ -1,4 +1,5 @@
 export default interface Character {
+    [key: string]: any,
     name: string,
     player: string,
     job: string,
@@ -8,6 +9,7 @@ export default interface Character {
     city: string,
     birthcity: string,
     attributes: {
+        [key: string]: string,
         strength: string,
         dexterity: string,
         constitution: string,
